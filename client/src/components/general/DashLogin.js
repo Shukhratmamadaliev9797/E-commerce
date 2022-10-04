@@ -33,7 +33,7 @@ export default function DashLogin() {
   return (
     <div className="dashLogin">
       <SnackBar
-        error={error}
+        message={error}
         vertical="top"
         horizontal="center"
         width="50rem"

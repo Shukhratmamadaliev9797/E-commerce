@@ -37,9 +37,17 @@
     td {
       &:nth-child(6) {
         span {
-          background: green;
           padding: 0.5rem 1rem;
           border-radius: 1rem;
+        }
+        .selling {
+          background: $green-color;
+        }
+        .outofstock {
+          background: $red-color;
+        }
+        .hotselling {
+          background: $blue-color;
         }
       }
       &:nth-child(8) {
@@ -64,4 +72,10 @@
       }
     }
   }
+  &__pagination {
+  }
+}
+
+.adminProducts__pagination {
+  color: white !important;
 }

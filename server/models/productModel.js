@@ -12,6 +12,9 @@ const productSchema = new mongoose.Schema(
     category: { type: String, required: true },
     quantity: { type: String, required: true },
     sale: { type: String, required: true },
+    publish: { type: Boolean, required: false },
+    sellerName: { type: String, required: true },
+    status: { type: String, required: false },
   },
   {
     timestamps: true,

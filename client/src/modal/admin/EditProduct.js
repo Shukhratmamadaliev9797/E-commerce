@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { createProduct } from "../../actions/productActions";
-export default function CreateProducts({ open, close }) {
+import { editProduct } from "../../actions/productActions";
+
+export default function EditProduct({ open, close, product }) {
+  const [productId, setProductId] = useState("");
   const [image, setImage] = useState("");
   const [sku, setSku] = useState("");
   const [brand, setBrand] = useState("");
@@ -14,8 +16,10 @@ export default function CreateProducts({ open, close }) {
   const [sale, setSale] = useState("");
   const [sellerId, setSellerId] = useState("");
   const [sellerName, setSellerName] = useState("");
+  const [status, setStatus] = useState("");
   const [imageLoad, setImageLoad] = useState(false);
   const [imageError, setImageError] = useState("");
+
   const userSignIn = useSelector((state) => state.userSignIn);
   const { userInfo } = userSignIn;
 
@@ -26,7 +30,20 @@ export default function CreateProducts({ open, close }) {
       setSellerId(userInfo._id);
       setSellerName(userInfo.firstName + " " + userInfo.lastName);
     }
-  }, [userInfo]);
+    if (product) {
+      setProductId(product._id);
+      setImage(product.image);
+      setSku(product.sku);
+      setBrand(product.brand);
+      setName(product.name);
+      setDescription(product.description);
+      setCategory(product.category);
+      setQuantity(product.quantity);
+      setPrice(product.price);
+      setSale(product.sale);
+      setStatus(product.status);
+    }
+  }, [userInfo, product]);
 
   const uploadImageHandler = async (e) => {
     const file = e.target.files[0];
@@ -51,7 +68,8 @@ export default function CreateProducts({ open, close }) {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      createProduct({
+      editProduct({
+        productId,
         image,
         sku,
         brand,
@@ -63,6 +81,7 @@ export default function CreateProducts({ open, close }) {
         sale,
         sellerId,
         sellerName,
+        status,
       })
     );
   };
@@ -82,7 +101,7 @@ export default function CreateProducts({ open, close }) {
         onSubmit={submitHandler}
       >
         <div className="createProducts__modal-title">
-          <h2>Create Products</h2>
+          <h2>Update Products</h2>
           <span onClick={close}>
             <i class="fa-solid fa-xmark"></i>
           </span>
@@ -177,9 +196,16 @@ export default function CreateProducts({ open, close }) {
             onChange={(e) => setSale(e.target.value)}
           />
         </div>
-
         <div className="createProducts__modal-inputBox">
-          <button type="submit">Create Product</button>
+          <label>Status</label>
+          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+            <option value="Selling">Selling</option>
+            <option value="Out of Stock">Out of Stock</option>
+            <option value="Hot Selling">Hot Selling</option>
+          </select>
+        </div>
+        <div className="createProducts__modal-inputBox">
+          <button type="submit">Update Product</button>
         </div>
       </form>
     </div>

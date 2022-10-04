@@ -5,6 +5,7 @@ import path from "path";
 import cors from "cors";
 import userRouter from "./routers/userRouter.js";
 import uploadRouter from "./routers/uploadRouter.js";
+import productRouter from "./routers/productRouter.js";
 
 dotenv.config({ path: path.resolve("../.env") });
 
@@ -30,6 +31,7 @@ mongoose.connect(
 //API routers
 app.use("/api/users", userRouter);
 app.use("/api/uploads", uploadRouter);
+app.use("/api/products", productRouter);
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));

@@ -8,7 +8,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function SnackBar({
-  error,
+  message,
   vertical,
   horizontal,
   autoHideDuration,
@@ -33,23 +33,23 @@ export default function SnackBar({
   };
 
   useEffect(() => {
-    if (error) {
+    if (message) {
       handleError();
     }
-  }, [error]);
+  }, [message]);
 
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
       <Snackbar
         anchorOrigin={{ vertical: vertical, horizontal: horizontal }}
         open={open}
-        message={error}
+        message={message}
         autoHideDuration={autoHideDuration}
         key={vertical + horizontal}
         onClose={handleClose}
       >
         <Alert className={className} sx={{ width: width }} severity={severity}>
-          {error}
+          {message}
         </Alert>
       </Snackbar>
     </Stack>
